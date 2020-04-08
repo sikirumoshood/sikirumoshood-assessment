@@ -41,4 +41,4 @@ const estimateInfectionsByRequestedTime = (currentlyInfected, duration, frequenc
   return estimatedInfections;
 };
 
-export default { estimateNumberOfInfectedPeople, estimateInfectionsByRequestedTime };
+export { estimateNumberOfInfectedPeople, estimateInfectionsByRequestedTime };

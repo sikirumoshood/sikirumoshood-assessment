@@ -1,6 +1,4 @@
-import * as E from './utils/estimate';
-
-const { estimateNumberOfInfectedPeople, estimateInfectionsByRequestedTime } = E;
+import { estimateNumberOfInfectedPeople, estimateInfectionsByRequestedTime } from './utils/estimate';
 
 const covid19ImpactEstimator = (data) => {
   const inputData = data;
