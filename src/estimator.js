@@ -2,9 +2,9 @@ import { estimateNumberOfInfectedPeople, estimateInfectionsByRequestedTime } fro
 
 const covid19ImpactEstimator = (data) => {
   const inputData = data;
-  const { reportedCases, periodType } = data;
-  const mildCurrentlyInfected = estimateNumberOfInfectedPeople(reportedCases, 10);
-  const severeCurrentlyInfected = estimateNumberOfInfectedPeople(reportedCases, 50);
+  const { reportedCases, periodType, timeToElapse } = data;
+  const mildCurrentlyInfected = estimateNumberOfInfectedPeople(reportedCases, timeToElapse);
+  const severeCurrentlyInfected = estimateNumberOfInfectedPeople(reportedCases, timeToElapse);
   const infectionsByRequestedTimeForMildCase = estimateInfectionsByRequestedTime(
     mildCurrentlyInfected,
     28,
