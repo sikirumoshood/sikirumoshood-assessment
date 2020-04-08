@@ -28,9 +28,9 @@ const estimateNumberOfInfectedPeople = (reportedCases, factor) => {
 const estimateInfectionsByRequestedTime = (currentlyInfected, duration, frequency, type) => {
   let days;
   switch (type) {
-    case 'weekly': days = parseFloat(duration) * 7;
+    case 'weeks': days = parseFloat(duration) * 7;
       break;
-    case 'monthly': days = parseFloat(duration) * 30;
+    case 'months': days = parseFloat(duration) * 30;
       break;
     default: days = parseFloat(duration);
   }
