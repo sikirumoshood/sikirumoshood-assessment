@@ -36,7 +36,7 @@ const estimateInfectionsByRequestedTime = (currentlyInfected, duration, frequenc
   }
   const currentlyInfectedNumber = parseFloat(currentlyInfected);
   const frequencyNumber = parseFloat(frequency);
-  const estimatedInfections = currentlyInfectedNumber * Math.floor(days / frequencyNumber);
+  const estimatedInfections = currentlyInfectedNumber * (2 ** Math.floor(days / frequencyNumber));
 
   return estimatedInfections;
 };
