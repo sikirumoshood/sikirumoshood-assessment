@@ -90,8 +90,8 @@ const covid19ImpactEstimator = (data) => {
       severeCasesByRequestedTime: severeCasesByRequestedTimeForMildCase,
       hospitalBedsByRequestedTime: hospitalBedsByRequestedTimeForMildCase,
       casesForICUByRequestedTime: casesForICUByRequestedTimeForMildCase,
-      casesForVentilatorsByRequestedTime: casesForVentilatorsByRequestedTimeForMildCase,
-      dollarsInFlight: dollarsInFlightForMildCase
+      casesForVentilatorsByRequestedTime: casesForVentilatorsByRequestedTimeForMildCase
+      // dollarsInFlight: dollarsInFlightForMildCase
     },
     severeImpact: {
       currentlyInfected: severeCurrentlyInfected,
@@ -99,8 +99,8 @@ const covid19ImpactEstimator = (data) => {
       severeCasesByRequestedTime: severeCasesByRequestedTimeForSevereCase,
       hospitalBedsByRequestedTime: hospitalBedsByRequestedTimeForSevereCase,
       casesForICUByRequestedTime: casesForICUByRequestedTimeForSeverCase,
-      casesForVentilatorsByRequestedTime: casesForVentilatorsByRequestedTimeForSevereCase,
-      dollarsInFlight: dollarsInFlightForSeverCase
+      casesForVentilatorsByRequestedTime: casesForVentilatorsByRequestedTimeForSevereCase
+      // dollarsInFlight: dollarsInFlightForSeverCase
 
     }
   };
