@@ -4,8 +4,8 @@ import {
   estimateSeverePositiveHospitalizationCase,
   estimateHospitalBedsByRequestedTime,
   estimateICUCases,
-  estimateVentilatorCases,
-  estimateEconomyMonetryLoss
+  estimateVentilatorCases
+  // estimateEconomyMonetryLoss
 } from './utils/estimate';
 
 /*
@@ -26,8 +26,8 @@ import {
 const covid19ImpactEstimator = (data) => {
   const inputData = data;
   const {
-    reportedCases, periodType, timeToElapse, totalHospitalBeds,
-    region: { avgDailyIncomeInUSD, avgDailyIncomePopulation }
+    reportedCases, periodType, timeToElapse, totalHospitalBeds
+    // region: { avgDailyIncomeInUSD, avgDailyIncomePopulation }
   } = data;
 
   const mildCurrentlyInfected = estimateNumberOfInfectedPeople(reportedCases, 10);
@@ -70,17 +70,17 @@ const covid19ImpactEstimator = (data) => {
   const casesForVentilatorsByRequestedTimeForSevereCase = estimateVentilatorCases(infectionsByRequestedTimeForSevereCase);
 
 
-  const dollarsInFlightForMildCase = estimateEconomyMonetryLoss(
-    infectionsByRequestedTimeForMildCase,
-    avgDailyIncomeInUSD,
-    avgDailyIncomePopulation
-  );
+  // const dollarsInFlightForMildCase = estimateEconomyMonetryLoss(
+  //   infectionsByRequestedTimeForMildCase,
+  //   avgDailyIncomeInUSD,
+  //   avgDailyIncomePopulation
+  // );
 
-  const dollarsInFlightForSeverCase = estimateEconomyMonetryLoss(
-    infectionsByRequestedTimeForSevereCase,
-    avgDailyIncomeInUSD,
-    avgDailyIncomePopulation
-  );
+  // const dollarsInFlightForSeverCase = estimateEconomyMonetryLoss(
+  //   infectionsByRequestedTimeForSevereCase,
+  //   avgDailyIncomeInUSD,
+  //   avgDailyIncomePopulation
+  // );
 
   return {
     data: inputData,
