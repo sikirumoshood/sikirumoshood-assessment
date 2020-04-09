@@ -1,8 +1,30 @@
-import { estimateNumberOfInfectedPeople, estimateInfectionsByRequestedTime } from './utils/estimate';
+import {
+  estimateNumberOfInfectedPeople,
+  estimateInfectionsByRequestedTime,
+  estimateSeverePositiveHospitalizationCase,
+  estimateHospitalBedsByRequestedTime
+} from './utils/estimate';
 
+/*
+{
+    region: {
+        name: "Africa",
+        avgAge: 19.7,
+        avgDailyIncomeInUSD: 5,
+        avgDailyIncomePopulation: 0.71
+    },
+    periodType: "days",
+    timeToElapse: 58,
+    reportedCases: 674,
+    population: 66622705,
+    totalHospitalBeds: 1380614
+}
+*/
 const covid19ImpactEstimator = (data) => {
   const inputData = data;
-  const { reportedCases, periodType, timeToElapse } = data;
+  const {
+    reportedCases, periodType, timeToElapse, totalHospitalBeds
+  } = data;
   const mildCurrentlyInfected = estimateNumberOfInfectedPeople(reportedCases, 10);
   const severeCurrentlyInfected = estimateNumberOfInfectedPeople(reportedCases, 50);
   const infectionsByRequestedTimeForMildCase = estimateInfectionsByRequestedTime(
@@ -18,15 +40,31 @@ const covid19ImpactEstimator = (data) => {
     periodType
   );
 
+  // eslint-disable-next-line
+  const severeCasesByRequestedTimeForMildCase = estimateSeverePositiveHospitalizationCase(infectionsByRequestedTimeForMildCase);
+
+  // eslint-disable-next-line
+  const severeCasesByRequestedTimeForSevereCase = estimateSeverePositiveHospitalizationCase(infectionsByRequestedTimeForSevereCase);
+
+  // eslint-disable-next-line
+  const hospitalBedsByRequestedTimeForMildCase = estimateHospitalBedsByRequestedTime(severeCasesByRequestedTimeForMildCase, totalHospitalBeds);
+
+  // eslint-disable-next-line
+  const hospitalBedsByRequestedTimeForSevereCase = estimateHospitalBedsByRequestedTime(severeCasesByRequestedTimeForSevereCase, totalHospitalBeds);
+
   return {
     data: inputData,
     impact: {
       currentlyInfected: mildCurrentlyInfected,
-      infectionsByRequestedTime: infectionsByRequestedTimeForMildCase
+      infectionsByRequestedTime: infectionsByRequestedTimeForMildCase,
+      severeCasesByRequestedTime: severeCasesByRequestedTimeForMildCase,
+      hospitalBedsByRequestedTime: hospitalBedsByRequestedTimeForMildCase
     },
     severeImpact: {
       currentlyInfected: severeCurrentlyInfected,
-      infectionsByRequestedTime: infectionsByRequestedTimeForSevereCase
+      infectionsByRequestedTime: infectionsByRequestedTimeForSevereCase,
+      severeCasesByRequestedTime: severeCasesByRequestedTimeForSevereCase,
+      hospitalBedsByRequestedTime: hospitalBedsByRequestedTimeForSevereCase
     }
   };
 };

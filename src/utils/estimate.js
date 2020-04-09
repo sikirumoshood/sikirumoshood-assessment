@@ -41,4 +41,40 @@ const estimateInfectionsByRequestedTime = (currentlyInfected, duration, frequenc
   return estimatedInfections;
 };
 
-export { estimateNumberOfInfectedPeople, estimateInfectionsByRequestedTime };
+
+/*
+    @Description: Estimates the number of patients with servere positive cases
+      and require hospitalization.
+    @params infectionsByRequestedTime { Number }
+    @returns 15 % of the number of infectionsByRequestedTime { Number }
+
+
+*/
+// eslint-disable-next-line
+const estimateSeverePositiveHospitalizationCase = (infectionsByRequestedTime) => parseFloat(infectionsByRequestedTime) * 0.15;
+
+
+/*
+
+    @Description: Estimates the number of hospital beds that are available
+      or in shortage.
+    @params severeCasesByRequestedTime { Number }
+    @params totalHospitalBeds { Number }
+    @returns availableBeds { Number }
+      Positive indicates availability while negative indicates shortages.
+
+*/
+
+const estimateHospitalBedsByRequestedTime = (severeCasesByRequestedTime, totalHospitalBeds) => {
+  const requiredNumberOfBeds = parseFloat(severeCasesByRequestedTime);
+  const maxNumberOfBedsAvailable = parseFloat(totalHospitalBeds) * 0.35;
+  const availableBeds = maxNumberOfBedsAvailable - requiredNumberOfBeds;
+  return availableBeds;
+};
+
+export {
+  estimateNumberOfInfectedPeople,
+  estimateInfectionsByRequestedTime,
+  estimateSeverePositiveHospitalizationCase,
+  estimateHospitalBedsByRequestedTime
+};
