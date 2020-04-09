@@ -25,8 +25,6 @@ import {
 */
 const covid19ImpactEstimator = (data) => {
   const inputData = data;
-  // eslint-disable-next-line
-  console.log('================== PROVIDED DATA: ', inputData);
   const {
     reportedCases, periodType, timeToElapse, totalHospitalBeds,
     region: { avgDailyIncomeInUSD, avgDailyIncomePopulation }
@@ -70,16 +68,21 @@ const covid19ImpactEstimator = (data) => {
   // eslint-disable-next-line
   const casesForVentilatorsByRequestedTimeForSevereCase = estimateVentilatorCases(infectionsByRequestedTimeForSevereCase);
 
+
   const dollarsInFlightForMildCase = estimateEconomyMonetryLoss(
     infectionsByRequestedTimeForMildCase,
     avgDailyIncomeInUSD,
-    avgDailyIncomePopulation
+    avgDailyIncomePopulation,
+    timeToElapse,
+    periodType
   );
 
   const dollarsInFlightForSeverCase = estimateEconomyMonetryLoss(
     infectionsByRequestedTimeForSevereCase,
     avgDailyIncomeInUSD,
-    avgDailyIncomePopulation
+    avgDailyIncomePopulation,
+    timeToElapse,
+    periodType
   );
 
   return {
