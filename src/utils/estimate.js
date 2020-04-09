@@ -1,3 +1,14 @@
+
+/*
+   @Description: Converts a decimal number to a whole number without
+      rounding it.
+   @param number { Number }
+   @example : Input of 1234.56 returns 1234
+*/
+
+const toWholeNumber = (number) => parseFloat(number.toString().split('.')[0]);
+
+
 /*
     @Description: This method estimates the number of currently infected
     people.
@@ -69,7 +80,7 @@ const estimateHospitalBedsByRequestedTime = (severeCasesByRequestedTime, totalHo
   const requiredNumberOfBeds = parseFloat(severeCasesByRequestedTime);
   const maxNumberOfBedsAvailable = parseFloat(totalHospitalBeds) * 0.35;
   const availableBeds = maxNumberOfBedsAvailable - requiredNumberOfBeds;
-  return availableBeds;
+  return toWholeNumber(availableBeds);
 };
 
 export {
