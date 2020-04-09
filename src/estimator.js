@@ -71,7 +71,9 @@ const covid19ImpactEstimator = (data) => {
 
 
   const dollarsInFlightForMildCase = estimateEconomyMonetryLoss(
-    infectionsByRequestedTimeForMildCase,
+    // infectionsByRequestedTimeForMildCase,
+    casesForICUByRequestedTimeForMildCase
++ casesForVentilatorsByRequestedTimeForMildCase,
     avgDailyIncomeInUSD,
     avgDailyIncomePopulation,
     timeToElapse,
