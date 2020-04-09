@@ -129,19 +129,10 @@ const estimateVentilatorCases = (infectionsByRequestedTime) => {
 */
 
 // eslint-disable-next-line
-const estimateEconomyMonetryLoss = (infectionsByRequestedTime, avgDailyIncome, avgIncomePopulation, duration, type) => {
-  let days;
-  switch (type) {
-    case 'weeks': days = parseFloat(duration) * 7;
-      break;
-    case 'months': days = parseFloat(duration) * 30;
-      break;
-    default: days = parseFloat(duration);
-  }
-
+const estimateEconomyMonetryLoss = (infectionsByRequestedTime, avgDailyIncome, avgIncomePopulation) => {
   // eslint-disable-next-line
-  const estimatedLoss = parseFloat(infectionsByRequestedTime) * parseFloat(avgDailyIncome) * parseFloat(avgIncomePopulation) * days;
-  return parseFloat(estimatedLoss.toFixed(2));
+  const estimatedLoss = parseFloat(infectionsByRequestedTime) * parseFloat(avgDailyIncome) * parseFloat(avgIncomePopulation);
+  return estimatedLoss;
 };
 
 export {
