@@ -4,8 +4,8 @@ import {
   estimateSeverePositiveHospitalizationCase,
   estimateHospitalBedsByRequestedTime,
   estimateICUCases,
-  estimateVentilatorCases
-  // estimateEconomyMonetryLoss
+  estimateVentilatorCases,
+  estimateEconomyMonetryLoss
 } from './utils/estimate';
 
 /*
@@ -26,10 +26,9 @@ import {
 const covid19ImpactEstimator = (data) => {
   const inputData = data;
   const {
-    reportedCases, periodType, timeToElapse, totalHospitalBeds
-    // region: { avgDailyIncomeInUSD, avgDailyIncomePopulation }
+    reportedCases, periodType, timeToElapse, totalHospitalBeds,
+    region: { avgDailyIncomeInUSD, avgDailyIncomePopulation }
   } = data;
-
   const mildCurrentlyInfected = estimateNumberOfInfectedPeople(reportedCases, 10);
   const severeCurrentlyInfected = estimateNumberOfInfectedPeople(reportedCases, 50);
   const infectionsByRequestedTimeForMildCase = estimateInfectionsByRequestedTime(
@@ -69,18 +68,21 @@ const covid19ImpactEstimator = (data) => {
   // eslint-disable-next-line
   const casesForVentilatorsByRequestedTimeForSevereCase = estimateVentilatorCases(infectionsByRequestedTimeForSevereCase);
 
+  const dollarsInFlightForMildCase = estimateEconomyMonetryLoss(
+    infectionsByRequestedTimeForMildCase,
+    avgDailyIncomeInUSD,
+    avgDailyIncomePopulation,
+    timeToElapse,
+    periodType
+  );
 
-  // const dollarsInFlightForMildCase = estimateEconomyMonetryLoss(
-  //   infectionsByRequestedTimeForMildCase,
-  //   avgDailyIncomeInUSD,
-  //   avgDailyIncomePopulation
-  // );
-
-  // const dollarsInFlightForSeverCase = estimateEconomyMonetryLoss(
-  //   infectionsByRequestedTimeForSevereCase,
-  //   avgDailyIncomeInUSD,
-  //   avgDailyIncomePopulation
-  // );
+  const dollarsInFlightForSeverCase = estimateEconomyMonetryLoss(
+    infectionsByRequestedTimeForSevereCase,
+    avgDailyIncomeInUSD,
+    avgDailyIncomePopulation,
+    timeToElapse,
+    periodType
+  );
 
   return {
     data: inputData,
@@ -90,8 +92,8 @@ const covid19ImpactEstimator = (data) => {
       severeCasesByRequestedTime: severeCasesByRequestedTimeForMildCase,
       hospitalBedsByRequestedTime: hospitalBedsByRequestedTimeForMildCase,
       casesForICUByRequestedTime: casesForICUByRequestedTimeForMildCase,
-      casesForVentilatorsByRequestedTime: casesForVentilatorsByRequestedTimeForMildCase
-      // dollarsInFlight: dollarsInFlightForMildCase
+      casesForVentilatorsByRequestedTime: casesForVentilatorsByRequestedTimeForMildCase,
+      dollarsInFlight: dollarsInFlightForMildCase
     },
     severeImpact: {
       currentlyInfected: severeCurrentlyInfected,
@@ -99,8 +101,8 @@ const covid19ImpactEstimator = (data) => {
       severeCasesByRequestedTime: severeCasesByRequestedTimeForSevereCase,
       hospitalBedsByRequestedTime: hospitalBedsByRequestedTimeForSevereCase,
       casesForICUByRequestedTime: casesForICUByRequestedTimeForSeverCase,
-      casesForVentilatorsByRequestedTime: casesForVentilatorsByRequestedTimeForSevereCase
-      // dollarsInFlight: dollarsInFlightForSeverCase
+      casesForVentilatorsByRequestedTime: casesForVentilatorsByRequestedTimeForSevereCase,
+      dollarsInFlight: dollarsInFlightForSeverCase
 
     }
   };
