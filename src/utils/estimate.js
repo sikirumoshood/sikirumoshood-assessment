@@ -83,9 +83,74 @@ const estimateHospitalBedsByRequestedTime = (severeCasesByRequestedTime, totalHo
   return toWholeNumber(availableBeds);
 };
 
+
+/*
+
+    @Description: Estimates the number of COVID-19 infected patients
+      that would need ICU for treatment
+    @params infectionsByRequestedTime { Number }
+    @returns numberOfICUCases { Number }
+
+*/
+
+const estimateICUCases = (infectionsByRequestedTime) => {
+  const numberOfICUCases = parseFloat(infectionsByRequestedTime) * 0.05;
+  return toWholeNumber(numberOfICUCases);
+};
+
+
+/*
+
+    @Description: Estimates the number of COVID-19 infected patients
+      that would need VENTILATORs for treatment
+    @params infectionsByRequestedTime { Number }
+    @returns numberOfVentilatorCases { Number }
+
+*/
+
+const estimateVentilatorCases = (infectionsByRequestedTime) => {
+  const numberOfVentilatorCases = parseFloat(infectionsByRequestedTime) * 0.02;
+  return toWholeNumber(numberOfVentilatorCases);
+};
+
+
+/*
+
+    @Description: Estimates the amount an economy losses over a period of time
+      in relation to infected patients
+    @params infectionsByRequestedTime { Number }
+    @params avgDailyIncome { Number }
+    @params avgIncomePopulation { Number }
+    @params duration { Number }
+    @params type { String } Possible values include: 'days' || 'weeks' || 'monthly'
+
+    @returns numberOfVentilatorCases { Number }
+
+*/
+
+// eslint-disable-next-line
+const estimateEconomyMonetryLoss = (infectionsByRequestedTime, avgDailyIncome, avgIncomePopulation, duration, type) => {
+  let days;
+  switch (type) {
+    case 'weeks': days = parseFloat(duration) * 7;
+      break;
+    case 'months': days = parseFloat(duration) * 30;
+      break;
+    default: days = parseFloat(duration);
+  }
+
+  // eslint-disable-next-line
+  const estimatedLoss = parseFloat(infectionsByRequestedTime) * parseFloat(avgDailyIncome) * parseFloat(avgIncomePopulation) * days;
+
+  return parseFloat(estimatedLoss.toFixed(2));
+};
+
 export {
   estimateNumberOfInfectedPeople,
   estimateInfectionsByRequestedTime,
   estimateSeverePositiveHospitalizationCase,
-  estimateHospitalBedsByRequestedTime
+  estimateHospitalBedsByRequestedTime,
+  estimateICUCases,
+  estimateVentilatorCases,
+  estimateEconomyMonetryLoss
 };

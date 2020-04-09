@@ -2,7 +2,10 @@ import {
   estimateNumberOfInfectedPeople,
   estimateInfectionsByRequestedTime,
   estimateSeverePositiveHospitalizationCase,
-  estimateHospitalBedsByRequestedTime
+  estimateHospitalBedsByRequestedTime,
+  estimateICUCases,
+  estimateVentilatorCases,
+  estimateEconomyMonetryLoss
 } from './utils/estimate';
 
 /*
@@ -23,8 +26,10 @@ import {
 const covid19ImpactEstimator = (data) => {
   const inputData = data;
   const {
-    reportedCases, periodType, timeToElapse, totalHospitalBeds
+    reportedCases, periodType, timeToElapse, totalHospitalBeds,
+    region: { avgDailyIncomeInUSD, avgDailyIncomePopulation }
   } = data;
+
   const mildCurrentlyInfected = estimateNumberOfInfectedPeople(reportedCases, 10);
   const severeCurrentlyInfected = estimateNumberOfInfectedPeople(reportedCases, 50);
   const infectionsByRequestedTimeForMildCase = estimateInfectionsByRequestedTime(
@@ -52,19 +57,55 @@ const covid19ImpactEstimator = (data) => {
   // eslint-disable-next-line
   const hospitalBedsByRequestedTimeForSevereCase = estimateHospitalBedsByRequestedTime(severeCasesByRequestedTimeForSevereCase, totalHospitalBeds);
 
+  // eslint-disable-next-line
+  const casesForICUByRequestedTimeForMildCase = estimateICUCases(infectionsByRequestedTimeForMildCase);
+
+  // eslint-disable-next-line
+  const casesForICUByRequestedTimeForSeverCase = estimateICUCases(infectionsByRequestedTimeForSevereCase);
+
+  // eslint-disable-next-line
+  const casesForVentilatorsByRequestedTimeForMildCase = estimateVentilatorCases(infectionsByRequestedTimeForMildCase);
+
+  // eslint-disable-next-line
+  const casesForVentilatorsByRequestedTimeForSevereCase = estimateVentilatorCases(infectionsByRequestedTimeForSevereCase);
+
+
+  const dollarsInFlightForMildCase = estimateEconomyMonetryLoss(
+    infectionsByRequestedTimeForMildCase,
+    avgDailyIncomeInUSD,
+    avgDailyIncomePopulation,
+    timeToElapse,
+    periodType
+  );
+
+  const dollarsInFlightForSeverCase = estimateEconomyMonetryLoss(
+    infectionsByRequestedTimeForSevereCase,
+    avgDailyIncomeInUSD,
+    avgDailyIncomePopulation,
+    timeToElapse,
+    periodType
+  );
+
   return {
     data: inputData,
     impact: {
       currentlyInfected: mildCurrentlyInfected,
       infectionsByRequestedTime: infectionsByRequestedTimeForMildCase,
       severeCasesByRequestedTime: severeCasesByRequestedTimeForMildCase,
-      hospitalBedsByRequestedTime: hospitalBedsByRequestedTimeForMildCase
+      hospitalBedsByRequestedTime: hospitalBedsByRequestedTimeForMildCase,
+      casesForICUByRequestedTime: casesForICUByRequestedTimeForMildCase,
+      casesForVentilatorsByRequestedTime: casesForVentilatorsByRequestedTimeForMildCase,
+      dollarsInFlight: dollarsInFlightForMildCase
     },
     severeImpact: {
       currentlyInfected: severeCurrentlyInfected,
       infectionsByRequestedTime: infectionsByRequestedTimeForSevereCase,
       severeCasesByRequestedTime: severeCasesByRequestedTimeForSevereCase,
-      hospitalBedsByRequestedTime: hospitalBedsByRequestedTimeForSevereCase
+      hospitalBedsByRequestedTime: hospitalBedsByRequestedTimeForSevereCase,
+      casesForICUByRequestedTime: casesForICUByRequestedTimeForSeverCase,
+      casesForVentilatorsByRequestedTime: casesForVentilatorsByRequestedTimeForSevereCase,
+      dollarsInFlight: dollarsInFlightForSeverCase
+
     }
   };
 };
