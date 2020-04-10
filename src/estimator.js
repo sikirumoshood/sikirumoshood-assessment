@@ -8,6 +8,8 @@ import {
   estimateEconomyMonetryLoss
 } from './utils/estimate';
 
+import constants from './config/constants';
+
 /*
 {
     region: {
@@ -25,18 +27,34 @@ import {
 */
 const covid19ImpactEstimator = (data) => {
   const inputData = data;
+
+
   const {
     reportedCases, periodType, timeToElapse, totalHospitalBeds,
     region: { avgDailyIncomeInUSD, avgDailyIncomePopulation }
   } = data;
-  const mildCurrentlyInfected = estimateNumberOfInfectedPeople(reportedCases, 10);
-  const severeCurrentlyInfected = estimateNumberOfInfectedPeople(reportedCases, 50);
+
+
+  const mildCurrentlyInfected = estimateNumberOfInfectedPeople(
+    reportedCases,
+    constants.MILD_CASE_MULTIPLYING_FACTOR
+  );
+
+
+  const severeCurrentlyInfected = estimateNumberOfInfectedPeople(
+    reportedCases,
+    constants.SEVER_CASE_MULTIPLYING_FACTOR
+  );
+
+
   const infectionsByRequestedTimeForMildCase = estimateInfectionsByRequestedTime(
     mildCurrentlyInfected,
     timeToElapse,
     3,
     periodType
   );
+
+
   const infectionsByRequestedTimeForSevereCase = estimateInfectionsByRequestedTime(
     severeCurrentlyInfected,
     timeToElapse,

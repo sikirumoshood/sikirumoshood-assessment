@@ -6,20 +6,27 @@
   "private": false,
   "scripts": {
     "lint": "eslint ./src/",
-    "my-app": "node_modules/@babel/node/bin/babel-node.js src/app.js"
+    "my-app": "node_modules/@babel/node/bin/babel-node.js src/app.js",
+    "start": "nodemon --exec node_modules/@babel/node/bin/babel-node.js index.js"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "json2xml": "^0.1.3",
+    "moment": "^2.24.0",
     "on-covid-19": "^0.1.3"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.9.0",
     "babel-jest": "^25.2.0",
-    "babel-node": "0.0.1-security",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.20.1",
-    "jest": "^25.2.0"
+    "jest": "^25.2.0",
+    "nodemon": "^2.0.3"
   },
   "browserslist": [
     "last 1 Chrome versions"
