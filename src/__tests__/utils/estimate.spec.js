@@ -154,7 +154,7 @@ describe('Unit test for estimate Module', () => {
   });
 
   describe('Test for estimateEconomyMonetryLoss', () => {
-    it('Should estimate of the economy monetry loss in days', () => {
+    it('Should estimate the economy monetry loss in days', () => {
       const infectionsByRequestedTime = 6650;
       const avgDailyIncome = 10;
       const avgIncomePopulation = 0.50;
@@ -171,7 +171,7 @@ describe('Unit test for estimate Module', () => {
       expect(result).toBe(expectedMonetryLoss);
     });
 
-    it('Should estimate of the economy monetry loss in weeks', () => {
+    it('Should estimate the economy monetry loss in weeks', () => {
       const infectionsByRequestedTime = 6650;
       const avgDailyIncome = 10;
       const avgIncomePopulation = 0.50;
@@ -190,7 +190,7 @@ describe('Unit test for estimate Module', () => {
       expect(result).toBe(expectedMonetryLoss);
     });
 
-    it('Should estimate of the economy monetry loss in months', () => {
+    it('Should estimate the economy monetry loss in months', () => {
       const infectionsByRequestedTime = 6650;
       const avgDailyIncome = 10;
       const avgIncomePopulation = 0.50;
