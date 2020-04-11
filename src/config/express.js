@@ -17,7 +17,8 @@ const expressConfig = (app) => {
 
   app.use('/api/v1/on-covid-19', estimatorRoute);
 
-  app.use((req, res, next) => {
+
+  app.use((req, res) => {
     const err = new Error('Not Found');
     err.status = 404;
     Logger.logToFile(req, err.status);

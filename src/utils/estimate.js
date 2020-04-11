@@ -151,5 +151,6 @@ export {
   estimateHospitalBedsByRequestedTime,
   estimateICUCases,
   estimateVentilatorCases,
-  estimateEconomyMonetryLoss
+  estimateEconomyMonetryLoss,
+  toWholeNumber
 };
