@@ -10,7 +10,9 @@
   "scripts": {
     "lint": "eslint ./src/",
     "my-app": "node_modules/@babel/node/bin/babel-node.js src/app.js",
-    "start": "nodemon --exec node_modules/@babel/node/bin/babel-node.js index.js"
+    "start:dev": "babel ./ --out-dir dist --ignore node_modules,babel.config.js,.github && nodemon dist/index.js",
+    "start": "nodemon dist/index.js",
+    "build": "babel ./ --out-dir dist --ignore node_modules,babel.config.js,.github"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
