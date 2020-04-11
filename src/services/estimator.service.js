@@ -33,7 +33,7 @@ class EstimatorService {
         default:
           res.status(400);
           res.set('Content-Type', 'application/json');
-          res.json({ message: 'Something went wrong, we are looking into it' });
+          res.json({ message: 'Something went wrong' });
           Logger.logToFile(req, 400);
           return res;
       }
@@ -42,16 +42,16 @@ class EstimatorService {
 
   static async fetchLogs(req, res) {
     try {
-      const logData = await Logger.readLogs();
+      const logData = Logger.readLogs();
       res.status(200);
       res.set('Content-Type', 'text/plain; charset=utf8');
-      res.send(logData);
+      res.json(logData);
       Logger.logToFile(req, 200);
       return res;
     } catch (e) {
       res.status(400);
       res.set('Content-Type', 'text/plain; charset=utf8');
-      res.send('Something went wrong, we are looking into it');
+      res.send('Something went wrong');
       Logger.logToFile(req, 400);
       return res;
     }

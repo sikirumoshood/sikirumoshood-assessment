@@ -1,16 +1,16 @@
 import express from 'express';
 import EstimatorController from '../controllers/estimator.controller';
 
-const Route = express.Router();
+const router = express.Router();
 
-Route.post(
-  '/api/v1/on-covid-19/:response_format?',
-  EstimatorController.getEstimate
-);
-
-Route.post(
-  '/api/v1/on-covid-19/logs',
+router.get(
+  '/logs',
   EstimatorController.getLogs
 );
 
-export default Route;
+router.post(
+  '/:response_format?',
+  EstimatorController.getEstimate
+);
+
+export default router;
