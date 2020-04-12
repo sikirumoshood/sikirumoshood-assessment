@@ -102,3 +102,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Remove package-lock.json
+package-lock.json
+
+# app.js my test file
+app.js
