@@ -10,9 +10,13 @@ class Logger {
     const START_TIME = req.start;
     const FINISH_TIME = moment();
     const duration = moment.duration(FINISH_TIME.diff(START_TIME));
-    const TIME_ELAPSED = duration.as('milliseconds');
+    let TIME_ELAPSED = duration.as('milliseconds');
 
-    fs.appendFile(config.logDirectory, `${METHOD}       ${URL}        ${STATUS}       ${TIME_ELAPSED}ms    \n`, (err) => {
+    if (parseFloat(TIME_ELAPSED) < 10) {
+      TIME_ELAPSED = `0${TIME_ELAPSED}`;
+    }
+
+    fs.appendFile(config.logDirectory, `${METHOD}       ${URL}        ${STATUS}       ${TIME_ELAPSED}ms \n`, (err) => {
       if (err) {
         throw new Error(err.message);
       }
