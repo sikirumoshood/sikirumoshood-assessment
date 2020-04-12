@@ -21,7 +21,7 @@ const expressConfig = (app) => {
   app.use((req, res) => {
     const err = new Error('Not Found');
     err.status = 404;
-    Logger.logToFile(req);
+    Logger.logToFile(req, err.status);
     return res.status(404).json(err);
   });
 };
