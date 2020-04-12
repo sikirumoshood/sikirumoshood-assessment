@@ -19,7 +19,7 @@ class EstimatorService {
       res.status(200);
       res.set('Content-Type', responseFormat);
       res.send(response);
-      Logger.logToFile(req, 200);
+      Logger.logToFile(req);
       return res;
     } catch (e) {
       switch (e.message) {
@@ -27,14 +27,14 @@ class EstimatorService {
           res.status(400);
           res.set('Content-Type', 'application/json');
           res.json({ message: 'Please provide a valid response type' });
-          Logger.logToFile(req, 200);
+          Logger.logToFile(req);
           return res;
 
         default:
           res.status(400);
           res.set('Content-Type', 'application/json');
           res.json({ message: 'Something went wrong' });
-          Logger.logToFile(req, 400);
+          Logger.logToFile(req);
           return res;
       }
     }
@@ -46,13 +46,13 @@ class EstimatorService {
       res.status(200);
       res.set('Content-Type', 'text/plain; charset=utf8');
       res.json(logData);
-      Logger.logToFile(req, 200);
+      Logger.logToFile(req);
       return res;
     } catch (e) {
       res.status(400);
       res.set('Content-Type', 'text/plain; charset=utf8');
       res.send('Something went wrong');
-      Logger.logToFile(req, 400);
+      Logger.logToFile(req);
       return res;
     }
   }

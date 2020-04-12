@@ -3,16 +3,14 @@ import moment from 'moment';
 import config from './index';
 
 class Logger {
-  static logToFile(req, status) {
-    const METHOD = req.method;
+  static logToFile(req) {
     const URL = req.originalUrl;
-    const STATUS = status;
     const START_TIME = req.start;
     const FINISH_TIME = moment();
     const duration = moment.duration(FINISH_TIME.diff(START_TIME));
-    const TIME_ELAPSED = duration.as('milliseconds');
-
-    fs.appendFile(config.logDirectory, `${METHOD}\t\t${URL}\t\t${STATUS}\t\t${TIME_ELAPSED}ms\n`, (err) => {
+    const TIME_ELAPSED = duration.as('seconds');
+    const TIMESTAMP = Date.now();
+    fs.appendFile(config.logDirectory, `${TIMESTAMP}\t\t${URL}\t\tdone in ${TIME_ELAPSED} seconds\n`, (err) => {
       if (err) {
         throw new Error(err.message);
       }
