@@ -44,13 +44,13 @@ class EstimatorService {
     try {
       const logData = Logger.readLogs();
       res.status(200);
-      res.set('Content-Type', 'text/plain; charset=utf-8');
+      res.set('Content-Type', 'text/plain');
       res.send(logData);
       Logger.logToFile(req, 200);
       return res;
     } catch (e) {
       res.status(400);
-      res.set('Content-Type', 'text/plain; charset=utf-8');
+      res.set('Content-Type', 'text/plain');
       res.send('Something went wrong');
       Logger.logToFile(req, 400);
       return res;
